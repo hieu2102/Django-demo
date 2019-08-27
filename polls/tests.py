@@ -104,3 +104,23 @@ class QuestionIndexViewTests(TestCase):
             response.context['latest_question_list'],
             ['<Question: Past question 2.>', '<Question: Past question 1.>']
         )
+class QuestionDetailViewTests(TestCase):
+    def test_future_question(self):
+        """
+        detail view of future questions return 404
+        :return: Http404 if pub_date >now()
+        """
+        future_question = create_question("future", 2)
+        url = reverse('polls:details', args=(future_question.id,))
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_past_question(self):
+        """
+        detail view of past questions return question text
+        :return:
+        """
+        past_question = create_question('past', -2)
+        url = reverse('polls:details', args= (past_question.id,))
+        response = self.client.get(url)
+        self.assertContains(response, past_question.question_text)
