@@ -1,4 +1,9 @@
+{% extends 'polls/base.html' %}
+{% block title %} Question Detail {% endblock %}
+{% block content %}
+<a href="{% url 'polls:index' %}">back to index</a>
 <h1>{{question}}</h1>
+
 {% if error_message %}
 <p>
     <strong>
@@ -6,6 +11,7 @@
     </strong>
 </p>
 {% endif %}
+
 
 <form action = "{% url 'polls:vote' question.id %}" method = 'post'>
     {% csrf_token %}
@@ -21,8 +27,10 @@
     </label>
     <br>
     {% endfor %}
-    <input
+    <input class = 'btn btn-primary'
             type = 'submit'
             value = 'Vote'
     >
 </form>
+
+{% endblock %}
