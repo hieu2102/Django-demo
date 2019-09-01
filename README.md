@@ -204,7 +204,7 @@ urlpatterns = [
     path('[app_name]/', include('[app_name].urls')),
     path('admin/', admin.site.urls),
 ]
-
+````
 ## Create Template
 Create a directory named **templates** and a subdirectory [app_name] in [app_name] directory
 
