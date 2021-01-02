@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.views import generic
 from django.urls import reverse
 from .models import Question,Choice
+from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 
@@ -62,3 +63,18 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
+
+
+def testUpload(request):
+    if request.method == 'POST' and request.FILES['myfile']:
+        # file upload tu giao dien (input id = myfile)
+        myfile = request.FILES['myfile']
+        # thao tac voi file (demo: save file to system)
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        # render giao dien tra ve 
+        return render(request, 'polls/simple_upload.html', {
+            'uploaded_file_url': uploaded_file_url
+        })
+    return render(request, 'polls/simple_upload.html')

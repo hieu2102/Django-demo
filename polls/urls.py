@@ -14,5 +14,5 @@ urlpatterns = [
     path('details/<int:pk>', views.DetailView.as_view(), name='details'),
     path('details/<int:pk>/results', views.ResultsView.as_view(), name= 'results'),
     path('details/<int:question_id>/vote/', views.vote, name = 'vote'),
-
+    path('testupload/', views.testUpload, name = 'testUpload'),
 ]
